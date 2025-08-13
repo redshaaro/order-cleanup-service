@@ -101,12 +101,20 @@ function normalizeProductType(type){
  
 function parseDeadline(deadlineStr) {
     if (!deadlineStr) return null;
-    // Replace / with - for uniformity
-    const normalized = deadlineStr.replace(/\//g, "-");
-    const date = new Date(normalized);
-    return isNaN(date.getTime()) ? null : date;
+    
+    // Normalize separators and ensure proper format
+    const normalized = deadlineStr
+        .replace(/\//g, '-')       // Convert slashes to dashes
+        .replace(/(\d{4})-(\d{2})-(\d{2})/, '$1-$2-$3'); // Ensure YYYY-MM-DD
+    
+    // Parse as UTC to avoid timezone shifts
+    const [datePart, timePart] = normalized.split(' ');
+    const [year, month, day] = datePart.split('-').map(Number);
+    const [hours, minutes] = timePart ? timePart.split(':').map(Number) : [0, 0];
+    
+    // Create date in UTC (avoids local timezone conversion)
+    return new Date(Date.UTC(year, month - 1, day, hours, minutes));
 }
-
 
 
 

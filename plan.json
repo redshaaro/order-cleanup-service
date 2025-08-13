@@ -7,21 +7,21 @@
     {
       "orderId": "ORD-002",
       "courierId": "Bosta"
+    },
+    {
+      "orderId": "ORD-003",
+      "courierId": "Bosta"
     }
   ],
   "unassigned": [],
   "capacityUsage": [
     {
-      "courierId": "Bosta",
-      "totalWeight": 3
-    },
-    {
       "courierId": "Weevo",
-      "totalWeight": 2
+      "totalWeight": 4
     },
     {
-      "courierId": "SafeShip",
-      "totalWeight": 0
+      "courierId": "Bosta",
+      "totalWeight": 5
     }
   ]
 }

@@ -1,10 +1,10 @@
 // mergeOrders.js
-
+const { parseDeadline } = require('../utils/Normalize');
 // Check if two addresses are similar enough
 function areAddressesSimilar(addr1, addr2) {
   if (!addr1 || !addr2) return false;
 
-  // Normalize by removing non-alphanumeric except spaces and lowercase
+  // Normalize addresses
   const norm1 = addr1.toLowerCase().replace(/[^a-z0-9\s]/g, "");
   const norm2 = addr2.toLowerCase().replace(/[^a-z0-9\s]/g, "");
 
@@ -12,6 +12,7 @@ function areAddressesSimilar(addr1, addr2) {
   if (norm1.includes(norm2) || norm2.includes(norm1)) return true;
 
   // Count common characters
+  
   const commonChars = [...norm1].filter(c => norm2.includes(c)).length;
   const avgLength = (norm1.length + norm2.length) / 2;
   const similarity = commonChars / avgLength;
@@ -37,12 +38,13 @@ function mergeOrders(ordersGroup) {
     }
   });
 
-  // For deadlines, keep the earliest (non-null)
-  const deadlines = ordersGroup
-    .map(o => o.deadline)
-    .filter(d => d !== null)
-    .sort((a, b) => a - b);
-  merged.deadline = deadlines.length > 0 ? deadlines[0] : null;
+  //  keep the earliest deadline 
+const deadlines = ordersGroup
+    .map(o => typeof o.deadline === 'string' ? parseDeadline(o.deadline) : o.deadline)
+    .filter(d => d instanceof Date && !isNaN(d.getTime()))
+    .sort((a, b) => a.getTime() - b.getTime());
+
+merged.deadline = deadlines.length > 0 ? deadlines[0] : null;
 
   // Check for address conflicts and warn if detected
   for (let i = 1; i < ordersGroup.length; i++) {
@@ -54,7 +56,7 @@ function mergeOrders(ordersGroup) {
         orderId: merged.orderId,
         issue: `Conflicting addresses between duplicates: "${addr1}" vs "${addr2}"`,
       });
-      break; // One warning per order is enough
+      break; 
     }
   }
 
@@ -64,8 +66,12 @@ function mergeOrders(ordersGroup) {
 // Group orders by normalized orderId
 function groupOrdersById(orders) {
   return orders.reduce((groups, order) => {
-    groups[order.orderId] = groups[order.orderId] || [];
-    groups[order.orderId].push(order);
+    // Normalize orderId here if needed
+    if (typeof order.deadline === 'string') {
+      order.deadline = parseDeadline(order.deadline); 
+    }
+    groups[order.orderId.trim()] = groups[order.orderId.trim()] || [];
+    groups[order.orderId.trim()].push(order);
     return groups;
   }, {});
 }

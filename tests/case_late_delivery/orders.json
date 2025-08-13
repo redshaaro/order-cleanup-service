@@ -1,0 +1,12 @@
+[
+{
+      "orderId": "ORD-001",
+      "city": "Giza",
+      "zoneHint": "Dokki",
+      "address": "12 Dokki",
+      "paymentType": "COD",
+      "productType": "standard",
+      "weight": 3,
+      "deadline": "2025-08-12 17:00"
+    }
+]

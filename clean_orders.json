@@ -2,23 +2,33 @@
   "orders": [
     {
       "orderId": "ORD-001",
-      "city": "6th of October",
-      "zone": "6th of October - El Montazah",
-      "address": "6 Oct - El Montazah - st.12",
+      "city": "Giza",
+      "zone": "Dokki",
+      "address": "12 Dokki",
       "paymentType": "COD",
-      "productType": "fragile",
-      "weight": 2,
-      "deadline": "2025-08-12 13:30"
+      "productType": "standard",
+      "weight": 4,
+      "deadline": "2025-08-12 16:30"
     },
     {
       "orderId": "ORD-002",
       "city": "Giza",
       "zone": "Dokki",
-      "address": "12 Dokki",
-      "paymentType": "Prepaid",
+      "address": "14 Dokki",
+      "paymentType": "COD",
       "productType": "standard",
       "weight": 3,
-      "deadline": "2025-08-12 15:00"
+      "deadline": "2025-08-12 17:00"
+    },
+    {
+      "orderId": "ORD-003",
+      "city": "Giza",
+      "zone": "Dokki",
+      "address": "15 Dokki",
+      "paymentType": "COD",
+      "productType": "standard",
+      "weight": 2,
+      "deadline": "2025-08-12 17:30"
     }
   ]
 }

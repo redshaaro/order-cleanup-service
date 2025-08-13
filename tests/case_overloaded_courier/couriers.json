@@ -1,0 +1,9 @@
+[ {
+    "courierId": "Weevo",
+    "zonesCovered": ["Giza", "Dokki"],
+    "acceptsCOD": true,
+    "exclusions": [],
+    "dailyCapacity": 5,
+    "priority": 1
+  }
+]
