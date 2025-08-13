@@ -1,6 +1,3 @@
-function stripQuotes(str) {
-    return str.replace(/^"+|"+$/g, "").trim();
-}
 
 function normalizeId(id) {
   if (!id) return id;
@@ -101,24 +98,16 @@ function normalizeProductType(type){
 
 
 }
-function normalizeDeadline(deadlineStr) {
-  if (!deadlineStr) return null;
-
-  // Replace slashes with dashes for uniformity
-  const cleaned = deadlineStr.replace(/\//g, "-").trim();
-
-  // Date constructor accepts "YYYY-MM-DD HH:MM"
-  const dateObj = new Date(cleaned);
-
-  // Check if valid date
-  if (isNaN(dateObj.getTime())) {
-    console.log("Invalid deadline format:", deadlineStr);
-    return null;
-  }
-
-  return dateObj;
+ 
+function parseDeadline(deadlineStr) {
+    if (!deadlineStr) return null;
+    // Replace / with - for uniformity
+    const normalized = deadlineStr.replace(/\//g, "-");
+    const date = new Date(normalized);
+    return isNaN(date.getTime()) ? null : date;
 }
 
 
 
-module.exports = { normalizeDeadline,normalizeId,normalizeProductType, normalizeAddress,normalizeText,normalizePaymentType ,normalizeProductType};
+
+module.exports = { parseDeadline,normalizeId,normalizeProductType, normalizeAddress,normalizeText,normalizePaymentType ,normalizeProductType};
